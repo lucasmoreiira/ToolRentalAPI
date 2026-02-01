@@ -1,18 +1,22 @@
 package com.api.toolrental.service;
 
+import com.api.toolrental.dto.UserDTO;
 import com.api.toolrental.model.User;
 import com.api.toolrental.repository.UserRepository;
-import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 @Service
-@RequiredArgsConstructor
 public class UserService {
 
-    private final UserRepository repository;
+    private UserRepository repository;
+
+    public UserService(UserRepository repository) {
+        this.repository = repository;
+    }
 
     public void save(User user){
         repository.save(user);
@@ -26,7 +30,12 @@ public class UserService {
         return repository.findAll();
     }
 
-    public User findById(UUID uuid){
-        return repository.findById(uuid).orElse(null);
+    public Optional<User> findById(UUID uuid){
+        return repository.findById(uuid);
+    }
+
+    public void update(User user){
+      repository.save(user);
+
     }
 }
