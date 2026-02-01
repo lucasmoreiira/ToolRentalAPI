@@ -21,6 +21,7 @@ public class UserController implements GenericController{
 
     @Autowired
     private UserService service;
+
     @Autowired
     private UserMapper mapper;
 
