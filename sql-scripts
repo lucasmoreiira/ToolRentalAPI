@@ -4,3 +4,14 @@ CREATE TABLE users(
     email varchar(60) NOT NULL,
     active boolean
 );
+
+CREATE TABLE rentals(
+	id uuid primary key,
+	id_user uuid not null references users(id),
+	start_date timestamp not null,
+	end_date timestamp not null,
+	total_price numeric(18,2) not null,
+	rental_status varchar(30) not null,
+	constraint chk_rental_status check(rental_status in ('OPEN', 'CLOSED', 'LATE'))
+);
+

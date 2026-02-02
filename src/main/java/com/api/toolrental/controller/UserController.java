@@ -4,8 +4,6 @@ import com.api.toolrental.dto.UserDTO;
 import com.api.toolrental.model.User;
 import com.api.toolrental.service.UserService;
 import com.api.toolrental.mapper.UserMapper;
-import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -19,17 +17,20 @@ import java.util.UUID;
 
 public class UserController implements GenericController{
 
-    @Autowired
     private UserService service;
 
-    @Autowired
     private UserMapper mapper;
+
+    public UserController(UserService service, UserMapper mapper) {
+        this.service = service;
+        this.mapper = mapper;
+    }
 
     @PostMapping
     public ResponseEntity<UserDTO> createUser(@RequestBody UserDTO dto) {
         User user = mapper.toUser(dto);
         service.save(user);
-        URI location = gerarHeaderLocation(user.getId());
+        URI location = getHeaderLocation(user.getId());
         return ResponseEntity.created(location).build();
     }
 

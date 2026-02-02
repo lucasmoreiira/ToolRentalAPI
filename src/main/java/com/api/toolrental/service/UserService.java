@@ -18,8 +18,8 @@ public class UserService {
         this.repository = repository;
     }
 
-    public void save(User user){
-        repository.save(user);
+    public User save(User user){
+        return repository.save(user);
     }
 
     public void delete(User user){
